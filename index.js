@@ -1,9 +1,9 @@
-import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.9/vue.esm-browser.js';
-
 const apiUrl='https://vue3-course-api.hexschool.io/v2';
 const path='williamone';
 
-import productmodal from "./components/pmodal.js";
+import productmodal from "./components/product.js";
+import cart from "./components/cart.js";
+import selecteditem from "./components/productdetail.js";
 
 const App={
     data(){
@@ -16,12 +16,14 @@ const App={
 
             itemToDel:[],
             products: [],
-            selectedItem:{},
+            // selectedItem:{},
             itemCounter:"",
+
+            pdetails:"",
                 }
     },
 
-    components:{productmodal},
+    components:{productmodal,cart,selecteditem},
     
     methods:{
         getProduct(){
@@ -37,6 +39,11 @@ const App={
 
     mounted(){
         this.getProduct();
+
+        this.pdetails = new bootstrap.Modal(this.$refs.productDOM);
+        // this.pdetails=new bootstrap.Modal(document.getElementById('productModal'))
+        console.log(this.$refs);
+        // this.pdetails.show();
     }
 
 }

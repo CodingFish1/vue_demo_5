@@ -4,12 +4,15 @@ const path='williamone';
 export default{
     data(){
         return{
-
+          selectedItem:{},
         };
     },
-    props:['itemToDel'],
 
     methods:{
+      selected(item){
+        this.selectedItem=item;
+        console.log(this.selectedItem);
+      }
 
     },
 
@@ -31,7 +34,8 @@ export default{
       <tr v-for="product in productlist" :key="product.id">
       <td style="width: 200px">
       <div style="height: 100px; background-size: cover; background-position: center"
-        :style="{backgroundImage: `url(${product.imageUrl})`}"></div>
+      :style="{ backgroundImage: 'url('+product.imageUrl+')' }">
+      </div>
     </td>
         <td>
         </td>{{product.title}}<td>
@@ -41,7 +45,7 @@ export default{
         </td>
         <td>
           <div class="btn-group btn-group-sm">
-            <button type="button" class="btn btn-outline-secondary">
+            <button type="button" class="btn btn-outline-secondary" @click="selected(product)">
               <i class="fas fa-spinner fa-pulse"></i>
               查看更多
             </button>
