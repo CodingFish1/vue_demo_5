@@ -1,9 +1,13 @@
 const apiUrl='https://vue3-course-api.hexschool.io/v2';
 const path='williamone';
 
-import productmodal from "./components/product.js";
+
+
+import productlist from "./components/productlist.js";
 import cart from "./components/cart.js";
-import selecteditem from "./components/productdetail.js";
+import productdetail from "./components/productdetail.js";
+import formport from "./components/form.js";
+
 
 const App={
     data(){
@@ -11,19 +15,14 @@ const App={
             tempProduct:{
                 imagesUrl:[],
             },
-            axiosStatus:"",
-            modalTitle:"",
 
-            itemToDel:[],
             products: [],
-            // selectedItem:{},
-            itemCounter:"",
+            selectedItem:{},
 
-            pdetails:"",
                 }
     },
 
-    components:{productmodal,cart,selecteditem},
+    components:{productlist,cart,productdetail,formport},
     
     methods:{
         getProduct(){
@@ -31,19 +30,17 @@ const App={
                 .then((res)=>{
                     this.products=res.data.products;
                     this.itemCounter=Object.values(this.products).length;
-                    console.log("Hi");
                 })
                 .catch((error)=>{console.dir(error);})
             },
+        
+        openModal(){
+            this.$refs.pmodal.openModal();
+        },
     },
 
     mounted(){
         this.getProduct();
-
-        this.pdetails = new bootstrap.Modal(this.$refs.productDOM);
-        // this.pdetails=new bootstrap.Modal(document.getElementById('productModal'))
-        console.log(this.$refs);
-        // this.pdetails.show();
     }
 
 }

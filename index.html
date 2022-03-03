@@ -16,11 +16,13 @@
     <div id="app">
       <div class="container">
         <div class="mt-4">
-          <productmodal :productlist="products"></productmodal>
+          <productlist :productlist="products"></productlist>
           <cart></cart>
         </div>
-                  <!-- Contact info -->
-        <selecteditem ref="productDOM"></selecteditem> 
+        <!-- <formport></formport> -->
+        <!-- Contact info -->
+          <productdetail ref="pmodal"></productdetail><!--Modal -->
+        
       </div>
     </div>
 
