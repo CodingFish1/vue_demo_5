@@ -1,6 +1,7 @@
 const apiUrl='https://vue3-course-api.hexschool.io/v2';
 const path='williamone';
 import loadCart from "../emitter.js";
+import cartInfo from "../emitter.js";
 
 export default{
     data(){
@@ -16,6 +17,7 @@ export default{
         axios.get(`${apiUrl}/api/${path}/cart`)
             .then((res)=>{
               this.cart=res.data.data.carts;
+              cartInfo.emit('cartInfo',this.cart)
             })
             .catch((error)=>{console.dir(error);})
         },
@@ -63,7 +65,7 @@ export default{
   },
 
     created(){
-      loadCart.on('loadCart',(data)=>{
+      loadCart.on('loadCart',(data)=>{ //from productlist.js
         console.log(data);
         this.getCart();
       })
@@ -71,7 +73,8 @@ export default{
     // props:[''],
 
     template:`<div class="text-end">
-    <button class="btn btn-outline-danger" type="button" @click="delCart">清空購物車</button>
+    <button class="btn btn-outline-danger" type="button" @click="delCart" 
+    :disabled="cart.length===0">清空購物車</button>
   </div>
   <table class="table align-middle">
     <thead>
@@ -93,9 +96,9 @@ export default{
           </td>
           <td>
             {{item.product.title}}
-            <div class="text-success">
+            <!---<div class="text-success">
               已套用優惠券
-            </div>
+            </div>--->
           </td>
           <td>
             <div class="input-group input-group-sm">

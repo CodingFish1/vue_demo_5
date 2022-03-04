@@ -9,6 +9,9 @@ export default{
           modalOn:"",
           selected:{},
           itemCounter:"",
+
+          isDisable:false,
+          warning:"",
         };
     },
 
@@ -28,6 +31,17 @@ export default{
                 .catch((error)=>{console.dir(error);})
       },
 
+      filter(){
+        let inputNum=Number(this.$refs.blocker.value)
+        if(inputNum <= 0 || inputNum === "e" || (Math.ceil(inputNum) != Math.floor(inputNum))){
+          this.warning="請輸入合法訂單數量";
+          this.isDisable=true;
+        }else{
+          this.warning="";
+          this.isDisable=false;
+        }
+      },
+
     },
 
     mounted(){
@@ -35,7 +49,7 @@ export default{
   },
 
     unmounted(){
-      
+      emitter.off('sendProduct',data)
     },
 
     created(){
@@ -70,9 +84,11 @@ export default{
               <div class="h5">現在只要 {{selected.price}} 元</div>
               <div>
                 <div class="input-group">
-                  <input type="number" class="form-control" min="1" v-model.number="itemCounter">
-                  <button type="button" class="btn btn-primary" @click="add2Cart">加入購物車</button>
+                  <input type="number" class="form-control" min="1" v-model.number="itemCounter" 
+                  ref="blocker" @change="filter">
+                  <button type="button" class="btn btn-primary" @click="add2Cart" :disabled="isDisable">加入購物車</button>
                 </div>
+                {{warning}}
               </div>
             </div>
             <!-- col-sm-6 end -->

@@ -8,8 +8,7 @@ import cart from "./components/cart.js";
 import productdetail from "./components/productdetail.js";
 import formport from "./components/form.js";
 
-
-const App={
+const App=Vue.createApp({
     data(){
         return {
             tempProduct:{
@@ -43,8 +42,10 @@ const App={
         this.getProduct();
     }
 
-}
+});
 
+App.component('VForm', VeeValidate.Form);
+App.component('VField', VeeValidate.Field);
+App.component('ErrorMessage', VeeValidate.ErrorMessage);
 
-
-Vue.createApp(App).mount('#app');
+App.mount('#app');
